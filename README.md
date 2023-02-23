@@ -1,10 +1,12 @@
 # Redis-In-Action
 Rewrite the code from the amazing book Redis-In-Action using `golang` and `go-redis/redis`, using `Go Modules` to manager the dependency.
 
-### Configuration:
+## 第一章
+- redis支持的5种数据类型
+- 5种数据类型的实际应用
+- 评分系统实现
 
-- All config messages are in the config/config.go file. Including the connection config to redis and a file path which used in Chapter05.
-- Modify it to your own configuration information when needed.
+
 
 ### Running：
 
