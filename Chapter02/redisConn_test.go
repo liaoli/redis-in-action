@@ -17,7 +17,7 @@ func TestLoginCookies(t *testing.T) {
 	token := uuid.NewV4().String()
 
 	t.Run("Test UpdateToken", func(t *testing.T) {
-		client.UpdateToken(token, "username", "itemX")
+		client.UpdateToken(token, "username1", "itemY")
 		t.Log("We just logged-in/update token: \n", token)
 		t.Log("For user: ", "username\n")
 		t.Log("\nWhat username do we get when we look-up that token?\n")
@@ -28,7 +28,7 @@ func TestLoginCookies(t *testing.T) {
 		t.Log("Let's drop the maximum number of cookies to 0 to clean them out\n")
 		t.Log("We will start a thread to do the cleaning, while we stop it later\n")
 
-		common.LIMIT = 0
+		common.LIMIT = 2
 		go client.CleanSessions()
 		time.Sleep(1 * time.Second)
 		common.QUIT = true
@@ -53,7 +53,7 @@ func TestLoginCookies(t *testing.T) {
 		utils.AssertTrue(t, len(r) >= 1)
 
 		t.Log("Let's clean out our sessions and carts")
-		common.LIMIT = 0
+		common.LIMIT = 2
 		go client.CleanFullSession()
 		time.Sleep(1 * time.Second)
 		common.QUIT = true
@@ -118,9 +118,29 @@ func TestLoginCookies(t *testing.T) {
 		common.QUIT = true
 		time.Sleep(2 * time.Second)
 		utils.AssertThread(t, common.FLAG)
-		defer client.Conn.FlushDB()
+		//defer client.Conn.FlushDB()
+	})
+
+	t.Run("Test statistics", func(t *testing.T) {
+		client.UpdateTokenModified(token, "username1", "itemY")
+		t.Log("We just logged-in/update token: \n", token)
+		t.Log("For user: ", "username\n")
+		t.Log("\nWhat username do we get when we look-up that token?\n")
+		r := client.CheckToken(token)
+		t.Log("username: ", r)
+		utils.AssertStringResult(t, "username", r)
+
+		t.Log("Let's drop the maximum number of cookies to 0 to clean them out\n")
+		t.Log("We will start a thread to do the cleaning, while we stop it later\n")
+
+		common.LIMIT = 2
+		go client.RescaleViewed()
+		time.Sleep(1 * time.Second)
+		common.QUIT = true
+		time.Sleep(2 * time.Second)
+
+		utils.AssertThread(t, common.FLAG)
+
+		//defer client.Reset()
 	})
 }
-
-
-

@@ -6,7 +6,12 @@ Rewrite the code from the amazing book Redis-In-Action using `golang` and `go-re
 - 5种数据类型的实际应用
 - 评分系统实现
 
-
+## 第二章
+- cookie缓存
+- 购物车实现
+- 网页缓存
+- 数据行缓存
+- 网页分析
 
 ### Running：
 
