@@ -94,7 +94,7 @@ func (r *ArticleRepo) GetGroupArticles(group, order string, page int64) []map[st
 	}
 	key := order + group
 	if r.Conn.Exists(key).Val() == 0 {
-		res := r.Conn.ZInterStore(key, &redis.ZStore{Aggregate: "MAX", Keys:[]string{"group:"+group, order}}).Val()
+		res := r.Conn.ZInterStore(key, &redis.ZStore{Aggregate: "MAX", Keys: []string{"group:" + group, order}}).Val() //取两个集合的交集
 		if res <= 0 {
 			log.Println("ZInterStore return 0")
 		}

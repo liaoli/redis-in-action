@@ -18,25 +18,25 @@ func Test(t *testing.T) {
 	//r := client.Conn.HGetAll("article:" + articleId).Val()
 	//t.Log("\nIts HASH looks like: ", r)
 	//utils.AssertTrue(t, len(r) != 0)
-	//articleId := "1"
+	articleId := "1"
 	//client.ArticleVote("article:"+articleId, "other_user")
 	//v, _ := client.Conn.HGet("article:"+articleId, "votes").Int()
 	//t.Log("\nWe voted for the article, it now has votes: ", v)
 	//utils.AssertTrue(t, v >= 1)
 
-	t.Log("\nThe currently highest-scoring articles are: ")
-	articles := client.GetArticles(1, "")
-	utils.AssertTrue(t, len(articles) >= 1)
-	for k, v := range articles {
-		t.Log(k, v)
-	}
-
-	//client.AddRemoveGroups(articleId, []string{"new-group"}, []string{})
-	//articles = client.GetGroupArticles("new-group", "score:", 1)
-	//t.Log("\nWe added the article to a new group, other articles include: ")
+	//t.Log("\nThe currently highest-scoring articles are: ")
+	//articles := client.GetArticles(1, "")
 	//utils.AssertTrue(t, len(articles) >= 1)
 	//for k, v := range articles {
 	//	t.Log(k, v)
 	//}
+
+	client.AddRemoveGroups(articleId, []string{"new-group"}, []string{})
+	articles := client.GetGroupArticles("new-group", "time:", 1)
+	t.Log("\nWe added the article to a new group, other articles include: ")
+	utils.AssertTrue(t, len(articles) >= 1)
+	for k, v := range articles {
+		t.Log(k, v)
+	}
 	//defer client.Reset()
 }
