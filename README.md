@@ -13,6 +13,18 @@ Rewrite the code from the amazing book Redis-In-Action using `golang` and `go-re
 - 数据行缓存
 - 网页分析
 
+## 第三章 redis命令
+- string
+- list
+- set
+- hash
+- zSet
+- 消息队列
+- 其他命令
+  + 排序
+  + 基本的redis事务
+  + 键的过期时间  
+
 ### Running：
 
 #### Using Docker: 
